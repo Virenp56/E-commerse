@@ -26,24 +26,24 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Project Structure - frontend
 
-## Project Structure
 ✅ Project Structure Overview
 ecommerce-app/
 ├── src/
-│   ├── app/
-│   │   ├── core/                  # Core services (singleton)
-│   │   ├── shared/                # Shared components, pipes, directives
-│   │   ├── auth/                  # Login & registration
-│   │   ├── home/                  # Homepage
-│   │   ├── products/              # Product listing, details
-│   │   ├── cart/                  # Shopping cart
-│   │   ├── checkout/              # Payment / address
-│   │   ├── orders/                # Past orders / order success
-│   │   ├── store/ (optional)      # NgRx Store
-│   │   ├── app-routing.module.ts # Main router with lazy loading
-│   │   ├── app.module.ts         # Root module
-│   └── ...
+│ ├── app/
+│ │ ├── core/ # Core services (singleton)
+│ │ ├── shared/ # Shared components, pipes, directives
+│ │ ├── auth/ # Login & registration
+│ │ ├── home/ # Homepage
+│ │ ├── products/ # Product listing, details
+│ │ ├── cart/ # Shopping cart
+│ │ ├── checkout/ # Payment / address
+│ │ ├── orders/ # Past orders / order success
+│ │ ├── store/ (optional) # NgRx Store
+│ │ ├── app-routing.module.ts # Main router with lazy loading
+│ │ ├── app.module.ts # Root module
+│ └── ...
 
 🧱 1. Core Module (core/)
 
@@ -62,10 +62,9 @@ http-error.interceptor.ts
 core.module.ts
 
 @NgModule({
-  providers: [AuthService, AuthGuard, TokenInterceptor]
+providers: [AuthService, AuthGuard, TokenInterceptor]
 })
 export class CoreModule {}
-
 
 ✅ Load once in AppModule.
 
@@ -82,11 +81,10 @@ Pipes: currencyPipe, truncatePipe
 Directives (optional)
 
 @NgModule({
-  declarations: [ProductCardComponent, TruncatePipe],
-  exports: [ProductCardComponent, TruncatePipe],
+declarations: [ProductCardComponent, TruncatePipe],
+exports: [ProductCardComponent, TruncatePipe],
 })
 export class SharedModule {}
-
 
 ✅ Import in feature modules as needed.
 
@@ -180,7 +178,6 @@ store/
 ├── selectors/
 ├── effects/
 
-
 You can manage:
 
 Auth state
@@ -194,12 +191,12 @@ Orders state
 In app-routing.module.ts:
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
-  { path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule), canActivate: [AuthGuard] },
-  { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule), canActivate: [AuthGuard] },
-  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule), canActivate: [AuthGuard] },
+{ path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+{ path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+{ path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
+{ path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule), canActivate: [AuthGuard] },
+{ path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule), canActivate: [AuthGuard] },
+{ path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule), canActivate: [AuthGuard] },
 ];
 
 🛠️ Key Features to Include
@@ -239,19 +236,111 @@ Use BehaviorSubject or NgRx Store for managing cart and auth state
 
 📌 Sample Lazy-Loaded Module: Products
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent],
-  imports: [
-    CommonModule,
-    ProductsRoutingModule,
-    SharedModule
-  ]
+declarations: [ProductListComponent, ProductDetailComponent],
+imports: [
+CommonModule,
+ProductsRoutingModule,
+SharedModule
+]
 })
 export class ProductsModule {}
 
-🚀 Optional Enhancements
+## Project Structure (Backend)
 
-Responsive UI with Angular Material or Tailwind CSS
+✅ Full API List for Your Angular eCommerce Site (Node.js Backend)
 
-Firebase backend or mock JSON Server for API
+Here’s a complete and categorized breakdown of the APIs you’ll need to build:
 
-GitHub Pages deployment
+🔐 1. Auth APIs (Login, Register, Forgot Password, Tokens)
+Method Endpoint Description
+POST /api/auth/register Register a new user
+POST /api/auth/login Log in and get JWT token
+POST /api/auth/forgot-password Send password reset email (optional)
+POST /api/auth/reset-password/:token Reset password using token
+GET /api/auth/me Get current logged-in user (token)
+👤 2. User APIs
+Method Endpoint Description
+GET /api/users/:id Get user by ID
+PUT /api/users/:id Update user profile
+GET /api/users/history Get logged-in user’s order history
+🛍️ 3. Product APIs (View, Search, Filter, Buy)
+Method Endpoint Description
+GET /api/products Get all products
+GET /api/products/:id Get single product details
+GET /api/products/search?q=term Search products by name/keyword
+GET /api/products/category/:categoryName Filter by category
+GET /api/products/price?min=0&max=1000 Filter by price range
+
+✅ You can combine search + filters in one endpoint if needed.
+
+🛒 4. Cart APIs
+Method Endpoint Description
+GET /api/cart Get user’s cart
+POST /api/cart Add item to cart
+PUT /api/cart/:itemId Update quantity
+DELETE /api/cart/:itemId Remove item from cart
+DELETE /api/cart Clear entire cart
+💳 5. Checkout / Payment APIs
+Method Endpoint Description
+POST /api/checkout Create order from cart
+GET /api/checkout/summary Get summary before payment
+POST /api/payment Process payment (mock or Stripe)
+📦 6. Orders / History APIs
+Method Endpoint Description
+GET /api/orders Get all past orders of a user
+GET /api/orders/:id Get single order detail
+POST /api/orders Create new order (after checkout)
+🛡️ 7. Token / JWT-Based Security
+
+All protected routes (e.g., /api/cart, /api/orders) should require JWT tokens in headers:
+
+Authorization: Bearer <your_token>
+
+You’ll need:
+
+auth.middleware.js to verify tokens
+
+Role-based middleware if needed (isAdmin, etc.)
+
+🚀 8. Lazy Loading Support for Angular
+
+No backend-specific change needed — but design your APIs so they return paginated results:
+
+Example: Paginated products
+GET /api/products?page=1&limit=10
+
+Response:
+
+{
+"products": [/* 10 products */],
+"total": 42,
+"page": 1,
+"pages": 5
+}
+
+🧠 Bonus: Admin APIs (Optional Later)
+Method Endpoint Description
+POST /api/products Add new product
+PUT /api/products/:id Update product
+DELETE /api/products/:id Delete product
+GET /api/users List all users (admin only)
+✅ Summary Table
+Category Total APIs
+Auth 5
+User 3
+Products 5–8
+Cart 5
+Orders 3
+Payment 2–3
+Admin Optional
+✅ Next Step
+
+Would you like me to:
+
+Help you start coding these APIs one by one?
+
+Generate a starter Node.js API project with all folders set up?
+
+Or connect your Angular frontend to these endpoints?
+
+Let me know how you'd like to proceed!
