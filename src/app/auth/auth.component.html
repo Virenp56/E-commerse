@@ -1,0 +1,53 @@
+<div class="d-flex h-100 w-100 justify-content-center align-items-center">
+  <div class="login-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <h2>Login</h2>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="email"> <i class="fa-solid fa-envelope"></i> Email </label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div
+          class="error"
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
+          Email is required.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password"> <i class="fas fa-lock"></i> Password </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <div
+          class="error"
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
+          <div *ngIf="form.get('password')?.errors?.['required']" class="error">
+            Password is required.
+          </div>
+          <div
+            *ngIf="form.get('password')?.errors?.['minlength']"
+            class="error"
+          >
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+    </form>
+  </div>
+</div>
