@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 const routes: Routes = [
   {
@@ -10,12 +11,16 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
-    path: 'auth',
+    path: 'login',
     component: AuthComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotComponent,
   },
 ];
 

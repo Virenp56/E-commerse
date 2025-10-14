@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
+  toggleForm: boolean = true;
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -17,7 +18,10 @@ export class AuthComponent {
   });
 
   constructor(private router: Router) {}
+
   onSubmit() {
-    this.router.navigate(['/dashboard']);
+    if (this.form.valid) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }

@@ -1,9 +1,7 @@
 <div class="d-flex h-100 w-100 justify-content-center align-items-center">
   <div class="login-container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
-      <h2>Login</h2>
-
-      <!-- Username -->
+      <h2>{{ toggleForm ? "Login" : "Sign Up" }}</h2>
       <div class="form-group">
         <label for="email"> <i class="fa-solid fa-envelope"></i> Email </label>
         <input
@@ -15,13 +13,11 @@
         />
         <div
           class="error"
-          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+          *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
         >
           Email is required.
         </div>
       </div>
-
-      <!-- Password -->
       <div class="form-group">
         <label for="password"> <i class="fas fa-lock"></i> Password </label>
         <input
@@ -47,7 +43,27 @@
         </div>
       </div>
 
-      <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+      <button type="submit">
+        <i class="fas fa-sign-in-alt"></i> {{ toggleForm ? "Login" : "Submit" }}
+      </button>
+      <div class="d-flex align-items-center mt-3">
+        <p class="mb-0">
+          {{ toggleForm ? "Create an account" : "Already have account" }}
+        </p>
+        <a
+          class="ms-3"
+          style="color: blue; cursor: pointer"
+          (click)="toggleForm = !toggleForm"
+          >{{ toggleForm ? "Sign Up" : "Login" }}</a
+        >
+      </div>
+
+      <a
+        class="mt-3"
+        style="color: blue; cursor: pointer"
+        [routerLink]="['/forgot-password']"
+        >{{ toggleForm ? "Forgot Password?" : "" }}</a
+      >
     </form>
   </div>
 </div>

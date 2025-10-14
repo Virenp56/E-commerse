@@ -1,0 +1,28 @@
+<div class="d-flex h-100 w-100 justify-content-center align-items-center">
+  <div class="login-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <h2>Forgot Password</h2>
+      <div class="form-group">
+        <label for="email"> <i class="fa-solid fa-envelope"></i> Email </label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div
+          class="error"
+          *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+        >
+          Email is required.
+        </div>
+      </div>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Submit</button>
+
+      <a class="mt-3" style="color: blue; cursor: pointer" [routerLink]="['']"
+        >Back to Login</a
+      >
+    </form>
+  </div>
+</div>
