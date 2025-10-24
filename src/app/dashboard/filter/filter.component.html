@@ -1,0 +1,130 @@
+<div
+  class="p-4 border rounded bg-light"
+  style="max-width: 300px; height: 100%; display: flex; flex-direction: column"
+>
+  <h5 class="mb-3">Filter Products</h5>
+  <div style="height: 100%; overflow: auto">
+    <!-- Sort By -->
+    <div class="mb-3">
+      <label for="sortSelect" class="form-label fw-semibold">Sort By</label>
+      <select id="sortSelect" class="form-select" aria-label="Sort products">
+        <option value="latest" selected>Latest to Oldest</option>
+        <option value="oldest">Oldest to Latest</option>
+        <option value="priceLowHigh">Price: Low to High</option>
+        <option value="priceHighLow">Price: High to Low</option>
+      </select>
+    </div>
+
+    <!-- Price Range -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Price Range ($)</label>
+      <div class="d-flex align-items-center gap-2">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Min"
+          min="0"
+          style="max-width: 100px"
+        />
+        <span>-</span>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Max"
+          min="0"
+          style="max-width: 100px"
+        />
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Category</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="electronics"
+          id="catElectronics"
+        />
+        <label class="form-check-label" for="catElectronics">
+          Electronics
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="clothing"
+          id="catClothing"
+        />
+        <label class="form-check-label" for="catClothing"> Clothing </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="books"
+          id="catBooks"
+        />
+        <label class="form-check-label" for="catBooks"> Books </label>
+      </div>
+    </div>
+
+    <!-- Rating -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Rating</label>
+      <div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="rating"
+            id="rating4"
+            value="4"
+          />
+          <label class="form-check-label" for="rating4">4 stars & up</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="rating"
+            id="rating3"
+            value="3"
+          />
+          <label class="form-check-label" for="rating3">3 stars & up</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="rating"
+            id="rating2"
+            value="2"
+          />
+          <label class="form-check-label" for="rating2">2 stars & up</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Availability -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Availability</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="inStock"
+          value="inStock"
+        />
+        <label class="form-check-label" for="inStock"> In Stock Only </label>
+      </div>
+    </div>
+  </div>
+  <!-- Buttons -->
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary flex-grow-1">Apply Filters</button>
+    <button class="btn btn-outline-secondary flex-grow-1">Clear Filters</button>
+  </div>
+</div>

@@ -1,1 +1,19 @@
-<div class="header">header works!</div>
+<!-- Header/Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+    <i class="fa-solid fa-bars me-3" (click)="toggleFilter($event)"></i>
+    <span class="fw-bold fs-5">YourCompany</span>
+  </a>
+
+  <div class="ms-auto navbar-profile">
+    <!-- Profile icon -->
+    <a href="/profile" class="text-dark text-decoration-none">
+      <i class="bi bi-person-circle fs-4"></i>
+    </a>
+
+    <!-- Logout button -->
+    <button class="btn btn-outline-danger btn-sm" [routerLink]="['/']">
+      Logout
+    </button>
+  </div>
+</nav>
